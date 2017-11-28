@@ -136,4 +136,23 @@ public class SmbmsBill {
     this.providerId = providerId;
   }
 
+  @Override
+  public String toString() {
+    final StringBuffer sb = new StringBuffer("SmbmsBill{");
+    sb.append("id=").append(id);
+    sb.append(", billCode='").append(billCode).append('\'');
+    sb.append(", productName='").append(productName).append('\'');
+    sb.append(", productDesc='").append(productDesc).append('\'');
+    sb.append(", productUnit='").append(productUnit).append('\'');
+    sb.append(", productCount=").append(productCount);
+    sb.append(", totalPrice=").append(totalPrice);
+    sb.append(", isPayment=").append(isPayment);
+    sb.append(", createdBy=").append(createdBy);
+    sb.append(", creationDate=").append(creationDate);
+    sb.append(", modifyBy=").append(modifyBy);
+    sb.append(", modifyDate=").append(modifyDate);
+    sb.append(", providerId=").append(providerId);
+    sb.append('}');
+    return sb.toString();
+  }
 }
