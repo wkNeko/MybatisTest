@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.SmbmsUserExtensionMapper">
+
+  <select id="listByAll" resultMap="smbmsUserExtensionMap">
+    SELECT
+      u.*,
+      r.roleName
+    FROM smbms_user u
+      INNER JOIN smbms_role r ON r.id = u.userRole
+  </select>
+  <!--字段映射-->
+  <resultMap id="smbmsUserExtensionMap" autoMapping="false" type="entity.SmbmsUserExtension">
+    <id property="id" column="id"/>
+    <result property="userName" column="userName"/>
+    <result property="roleName" column="roleName"/>
+  </resultMap>
+
+  <select resultMap="SmbmsUserExtensionMap2" id="findById">
+    SELECT *
+    FROM smbms_user u
+      INNER JOIN smbms_role r ON r.id = u.userRole
+    WHERE u.id = #{id}
+  </select>
+  <resultMap id="SmbmsUserExtensionMap2" type="entity.SmbmsUserExtension">
+    <id property="id" column="id"/>
+    <result property="userName" column="userName"/>
+    <association property="smbmsRole" javaType="entity.SmbmsRole">
+      <id property="id" column="userRole"/>
+      <result property="roleName" column="roleName"/>
+    </association>
+  </resultMap>
+</mapper>

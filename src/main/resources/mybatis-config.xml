@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "mybatis-3-config.dtd" >
+<configuration>
+
+  <!--使用外部配置的数据源-->
+  <properties resource="database.properties"/>
+
+  <!--mybatis 的全局设置-->
+  <settings>
+    <!--设置启用数据库字段下划线映射到java对象的驼峰式命名属性，默认为false-->
+    <!--<setting name="mapUnderscoreToCamelCase" value="true"/>-->
+    <!--设置 mybatis 的日志实现为 log4j-->
+    <setting name="logImpl" value="LOG4J"/>
+    <!--设置自动映射级别为 NONE(禁止自动匹配)-->
+    <setting name="autoMappingBehavior" value="FULL"/>
+  </settings>
+
+  <!--配置 class/package 别名以简化路径-->
+  <typeAliases>
+    <!--<package name="com.mybatis.test.entity"/>-->
+  </typeAliases>
+
+  <!--mybatis 插件-->
+  <plugins>
+    <!--引入 pageHelper 分页插件-->
+    <plugin interceptor="com.github.pagehelper.PageInterceptor">
+      <!--&lt;!&ndash;确定 sql 数据库类型&ndash;&gt;-->
+      <property name="helpDialect" value="mysql"/>
+      <!--
+      默认值为 false，该参数对使用 RowBounds 作为分页参数时有效。
+      当该参数设置为 true 时，会将 RowBounds 中的 offset 参数当成 pageNum 使用
+      -->
+      <property name="offsetAsPageNum" value="true"/>
+      <!--
+      默认值为false，该参数对使用 RowBounds 作为分页参数时有效。
+      当该参数设置为true时，使用 RowBounds 分页会进行 count 查询。
+      -->
+      <property name="rowBoundsWithCount" value="true"/>
+      <!--
+      默认值为 false，
+      当该参数设置为 true 时，如果 pageSize=0 或者 RowBounds.limit = 0 就会查询出全部的结果
+      （相当于没有执行分页查询，但是返回结果仍然是 Page 类型）。
+      -->
+      <property name="pageSizeZero" value="true"/>
+      <!--
+      分页合理化参数，默认值为false。
+      当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。
+      默认false 时，直接根据参数进行查询。
+      -->
+      <property name="reasonable" value="true"/>
+    </plugin>
+  </plugins>
+
+  <!--运行运行环境(一或多个)-->
+  <environments default="development">
+    <environment id="development">
+      <!--配置事务-->
+      <transactionManager type="JDBC"/>
+
+      <!--使用外部的配置(database.properties)-->
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+
+    </environment>
+  </environments>
+
+  <!--配置映射器-->
+  <mappers>
+    <!--使用 xml 映射文件-->
+    <mapper resource="mybatis/SmbmsUserMapper.xml"/>
+    <mapper resource="mybatis/SmbmsUserExtensionMapper.xml"/>
+    <mapper resource="mybatis/SmbmsBillMapper.xml"/>
+  </mappers>
+
+</configuration>

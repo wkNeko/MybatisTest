@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.SmbmsUserMapper">
+  <insert id="insert">
+    INSERT INTO smbms_user (userCode, userName, userPassword, gender, birthday, phone, address, userRole, createdBy, creationDate, modifyBy, modifyDate)
+    VALUES (#{userCode}, #{userName}, #{userPassword}, #{gender}, #{birthday}, #{phone}, #{address}, #{userRole},
+                         #{createdBy}, #{creationDate}, #{modifyBy}, #{modifyDate})
+  </insert>
+
+  <update id="update">
+    UPDATE smbms_user
+    SET
+      userCode     = #{userCode},
+      userName     = #{userName},
+      userPassword = #{userPassword},
+      gender       = #{gender},
+      birthday     = #{birthday},
+      phone        = #{phone},
+      address      = #{address},
+      userRole     = #{userRole},
+      createdBy    = #{createdBy},
+      creationDate = #{creationDate},
+      modifyBy     = #{modifyBy},
+      modifyDate   = #{modifyDate}
+    WHERE id = #{id};
+  </update>
+
+  <delete id="deleteById">
+    DELETE FROM smbms_user
+    WHERE id = #{id}
+  </delete>
+
+  <select id="listByAll" resultType="entity.SmbmsUser">
+    SELECT *
+    FROM smbms_user
+  </select>
+
+  <select id="listByGenderAndBirthday" resultType="entity.SmbmsUser">
+    SELECT *
+    FROM smbms_user
+    WHERE gender = #{gender} AND birthday > #{birthday}
+  </select>
+
+  <select id="listByMap" resultType="entity.SmbmsUser" parameterType="map">
+    SELECT *
+    FROM smbms_user
+    WHERE gender = #{gender} AND birthday > #{birthday}
+  </select>
+
+  <select id="findById" resultType="entity.SmbmsUser">
+    SELECT *
+    FROM smbms_user
+    WHERE id = #{id}
+  </select>
+
+
+</mapper>
