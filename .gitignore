@@ -3,9 +3,9 @@ target/
 
 # idea 本身的配置文件
 .idea/
-SpringTest.iml
+MybatisTest.iml
 
 # 日志，测试，编译后的类文件
-log/
+*.log
 test/
 .class
